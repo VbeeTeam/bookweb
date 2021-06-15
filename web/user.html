@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body id="bodyId">
+    <header>
+        <div class="wrap">
+            <a href="#" id="userId">点击头部下拉</a> 
+            <div class="show_model" id="showId">
+                下拉显示隐藏
+            </div>
+        </div>
+    </header>
+    <section>
+        <div class="wrap">
+            <div class="menu">
+                <ul>
+                    <li>
+                        <a href="index.html">图书管理</a>
+                    </li>
+                    <li>
+                        <a href="#">用户管理</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="content">
+                <table cellpdding="0" cellspacing="0" border="1" width="950">
+                    <thead>
+                        <th>表头1</th>
+                        <th>表头2</th>
+                        <th>表头3</th>
+                        <th>操作</th>
+                    </thead>
+                    <tbody>
+                        <tr align="center">
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td><a href="#" class="edit">修改</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">删除</a></td>
+                        </tr>
+                        <tr align="center">
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td><a href="#" class="edit">修改</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">删除</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <form action="">
+                    <label>姓名：</label><input type="text" name="" id="" /><br />
+                    <input type="submit" value="提交" />
+                </form>
+            </div>
+        </div>
+    </section>
+    <div class="editModel">
+        <div class="editMask" id="editMask"></div>
+        <form action="" id="editForm">
+            <a href="#" id="cancel">取消</a>
+            <label>姓名：</label><input type="text" name="" id="" /><br />
+            <input type="submit" value="修改提交" />
+        </form>
+    </div>
+    
+       
+</body>
+
+</html>
+<script src="js/common.js"></script>
