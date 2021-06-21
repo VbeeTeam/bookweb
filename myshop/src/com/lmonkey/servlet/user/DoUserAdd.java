@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.lmonkey.entity.USER;
+import com.lmonkey.service.USERDao;
 
 /**
  * Servlet implementation class DoUserAdd
@@ -41,18 +42,20 @@ public class DoUserAdd extends HttpServlet {
 		String address = request.getParameter("address");
 
 		// 创建用户实体
-
 		USER u = new USER(userName, name, pwd, sex, year, email, mobile,
 				address, 1, null);
-		// 加入到数据库的用户表中
-		System.out.print(u);
 
-		// 成功或失败
-		if (true) {
+		// 加入到数据库的用户表中
+		// ！！！最后一步写调用USERDao.insert方法
+		int count = USERDao.insert(u);
+
+		// 成功或失败 true
+		if (count > 0) {
 			// 重定向到用户列表
 			response.sendRedirect("admin_user.jsp");
 		} else {
-			// 输出流 获取到的打印流
+			// 输出流
+			// 获取到的打印流
 			PrintWriter out = response.getWriter();
 
 			out.write("<script>");
