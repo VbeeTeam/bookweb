@@ -36,7 +36,7 @@ public class Basedao {
 		return conn;
 	}
 
-	// 通用sql语句方法
+	// 处理通用sql语句方法
 	public static int exectuIUD(String sql, Object[] params) {
 		// 返回的行数
 		int count = 0;

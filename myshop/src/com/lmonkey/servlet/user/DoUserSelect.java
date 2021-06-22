@@ -26,6 +26,17 @@ public class DoUserSelect extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+
+		// int cpage = 1; // 当前页
+		// int count = 5; // 每页显示的条数
+		//
+		// // 获取用户指定的页面
+		// String cp = request.getParameter("cp");
+		//
+		// if (cp != null) {
+		// cpage = Integer.parseInt(cp);
+		// }
+
 		// 调用查询用户的方法 获取所有的用户记录
 		ArrayList<USER> list = USERDao.selectAll();
 		// 放到请求对象域里

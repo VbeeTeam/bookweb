@@ -28,7 +28,7 @@ public class USERDao {
 		ArrayList<USER> list = new ArrayList<USER>();
 
 		// 声明结果集
-		ResultSet rsResultSet = null;
+		ResultSet rs = null;
 		// 获取连接对象
 		Connection conn = Basedao.getconn();
 		// 准备SQL语句
@@ -36,17 +36,31 @@ public class USERDao {
 
 		try {
 			String sql = "select * from USER order by USER_BIRTHDAY";
-			conn.prepareStatement(sql);
-
+			// 连接对象里准备sql语句
+			ps = conn.prepareStatement(sql);
+			// 执行查询结果给结果集
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-
+				USER u = new USER(rs.getString("USER_ID"),
+						rs.getString("USER_NAME"),
+						rs.getString("USER_PASSWORD"),
+						rs.getString("USER_SEX"),
+						rs.getString("USER_BIRTHDAY"),
+						rs.getString("USER_EMAIL"),
+						rs.getString("USER_MOBILE"),
+						rs.getString("USER_ADDRESS"), rs.getInt("USER_STATUS"),
+						rs.getString("USER_MEMO"));
+				// 数据添加到列表
+				list.add(u);
 			}
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			// 最后关闭结果集、sql、连接
+			Basedao.closeall(rs, ps, conn);
 		}
 
 		return list;

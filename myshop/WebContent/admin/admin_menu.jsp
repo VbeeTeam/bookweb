@@ -37,7 +37,7 @@
                 <li>
                     <a href="#"><i class="icon-font">&#xe003;</i>常用操作</a>
                     <ul class="sub-menu">
-                        <li><a href="admin_user.jsp"><i class="icon-font">&#xe008;</i>用户管理</a></li>
+                        <li><a href="/myshop/admin/admin_douserselect"><i class="icon-font">&#xe008;</i>用户管理</a></li>
                         <li><a href="admin_cate.jsp"><i class="icon-font">&#xe005;</i>分类管理</a></li>
                         <li><a href="admin_book.jsp"><i class="icon-font">&#xe006;</i>图书管理</a></li>
                         <li><a href="admin_order.jsp"><i class="icon-font">&#xe004;</i>订单管理</a></li>

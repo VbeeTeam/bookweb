@@ -52,7 +52,7 @@ public class DoUserAdd extends HttpServlet {
 		// 成功或失败 true
 		if (count > 0) {
 			// 重定向到用户列表
-			response.sendRedirect("admin_user.jsp");
+			response.sendRedirect("/myshop/admin/admin_douserselect");
 		} else {
 			// 输出流
 			// 获取到的打印流
