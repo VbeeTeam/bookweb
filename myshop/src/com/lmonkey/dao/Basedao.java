@@ -27,7 +27,7 @@ public class Basedao {
 		try {
 			conn = DriverManager
 					.getConnection(
-							"jdbc:mysql://localhost:3306/shop3?useSSL=false&serverTimezone=UTC",
+							"jdbc:mysql://localhost:3306/myshop?useSSL=false&serverTimezone=UTC",
 							"root", "123456");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -46,7 +46,7 @@ public class Basedao {
 		PreparedStatement ps = null;
 
 		try {
-			// 准备执行的sql语句
+			// 准备执行的sql语句对象
 			// inset into user(,,,) value(?, ?, ?)
 			ps = conn.prepareStatement(sql);
 

@@ -10,7 +10,7 @@ import com.lmonkey.dao.Basedao;
 import com.lmonkey.entity.USER;
 
 public class USERDao {
-	// 用户的添加方法
+	// 1.用户的添加方法
 	public static int insert(USER u) {
 		String sql = "insert into USER values(?, ?, ?, ?, DATE_FORMAT(?, '%Y-%m-%d'), ?, ?, ?, ?, ?)";
 		// 获取参数的方法
@@ -22,8 +22,47 @@ public class USERDao {
 		return Basedao.exectuIUD(sql, params);
 	}
 
-	// 用户查询的方法
-	public static ArrayList<USER> selectAll() {
+	// 3.获取列表总数和总页数 count：条数
+	public static int[] totalPage(int count) {
+		// 0总记录数 1页数
+		int arr[] = { 0, 1 };
+		// 获取数据库连接对象
+		Connection conn = Basedao.getconn();
+		// 声明语句对象
+		PreparedStatement ps = null;
+		// 设置结果集
+		ResultSet rs = null;
+
+		try {
+			String sql = "select count(*) from USER";
+			// 准备sql语句
+			ps = conn.prepareStatement(sql);
+			// 执行sql语句
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				// 结果集中取到总记录数
+				arr[0] = rs.getInt(1);
+				// 计算页数
+				if (arr[0] % count == 0) {
+					arr[1] = arr[0] / count;
+				} else {// 总页数加1
+					arr[1] = arr[0] / count + 1;
+				}
+
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			Basedao.closeall(rs, ps, conn);
+		}
+		return arr;
+	}
+
+	// 2.用户查询的方法
+	public static ArrayList<USER> selectAll(int cpage, int count) {
 		// 创建一个列表对象
 		ArrayList<USER> list = new ArrayList<USER>();
 
@@ -35,9 +74,13 @@ public class USERDao {
 		PreparedStatement ps = null;
 
 		try {
-			String sql = "select * from USER order by USER_BIRTHDAY";
+			// String sql = "select * from USER order by USER_BIRTHDAY";
+			String sql = "select * from USER order by USER_BIRTHDAY desc limit ?, ?";
 			// 连接对象里准备sql语句
 			ps = conn.prepareStatement(sql);
+			// 设置语句 1=从第几条开始取 2=取的条数范围
+			ps.setInt(1, (cpage - 1) * count);
+			ps.setInt(2, count);
 			// 执行查询结果给结果集
 			rs = ps.executeQuery();
 

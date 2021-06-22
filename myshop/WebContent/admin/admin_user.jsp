@@ -68,11 +68,11 @@
                         </c:forEach>
                     </table>
                     <div class="list-page">
-                    	共有000条记录，当前1/4页
-                    	<a href="">首页</a>
-                    	<a href="">上一页</a>
-                    	<a href="">下一页</a>
-                    	<a href="">尾页</a>
+                    	共有${tsum}条记录，当前${cpage}/${tpage}页
+                    	<a href="admin_douserselect?cp=1">首页</a>
+                    	<a href="admin_douserselect?cp=${cpage-1<1?1:cpage-1}">上一页</a>
+                    	<a href="admin_douserselect?cp=${cpage+1>tpage?tpage:cpage+1}">下一页</a>
+                    	<a href="admin_douserselect?cp=${tpage}">尾页</a>
                     </div>
                 </div>
             </form>
