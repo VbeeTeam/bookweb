@@ -130,4 +130,70 @@ public class USERDao {
 
 		return list;
 	}
+
+	// 4.通过id查询用户
+	public static USER selectById(String id) {
+		// 创建一个对象
+		USER u = null;
+
+		// 声明结果集
+		ResultSet rs = null;
+		// 获取连接对象
+		Connection conn = Basedao.getconn();
+		// 准备SQL语句
+		PreparedStatement ps = null;
+
+		try {
+
+			String sql = "select m.*, DATE_FORMAT(m.user_birthday, '%Y-%m-%d')birthday from USER m where USER_ID=?";
+			// 连接对象里准备sql语句
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, id);
+
+			// 执行查询结果给结果集
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				u = new USER(rs.getString("USER_ID"),
+						rs.getString("USER_NAME"),
+						rs.getString("USER_PASSWORD"),
+						rs.getString("USER_SEX"), rs.getString("birthday"),
+						rs.getString("USER_EMAIL"),
+						rs.getString("USER_MOBILE"),
+						rs.getString("USER_ADDRESS"), rs.getInt("USER_STATUS"),
+						rs.getString("USER_MEMO"));
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			// 最后关闭结果集、sql、连接
+			Basedao.closeall(rs, ps, conn);
+		}
+
+		return u;
+	}
+
+	// 5.修改用户
+	public static int update(USER u) {
+		String sql = "update USER set USER_NAME=?,USER_PASSWORD=?,USER_SEX=?,USER_BIRTHDAY=DATE_FORMAT(?, '%Y-%m-%d'),USER_EMAIL=?,USER_MOBILE=?,USER_ADDRESS=?,USER_STATUS=?,USER_MEMO=? where USER_ID=?";
+		// 获取参数的方法
+		Object[] params = { u.getUSER_NAME(), u.getUSER_PASSWORD(),
+				u.getUSER_SEX(), u.getUSER_BIRTHDAY(), u.getUSER_EMAIL(),
+				u.getUSER_MOBILE(), u.getUSER_ADDRESS(), u.getUSER_STATUS(),
+				u.getUSER_MEMO(), u.getUSER_ID() };
+		// 返回通用语句的sql方法
+		return Basedao.exectuIUD(sql, params);
+	}
+
+	// 6.删除用户
+	public static int del(String id) {
+		String sql = "delete from user where USER_ID=?";
+		// 获取参数的方法
+		Object[] params = { id };
+		// 返回通用语句的sql方法
+		return Basedao.exectuIUD(sql, params);
+	}
+
 }

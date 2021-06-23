@@ -23,18 +23,18 @@
             </div>
         </div>
         <div class="result-wrap">
-            <form name="myform" id="myform" method="get">
+            <form action="/myshop/admin/admin_douserdel" name="myform" id="myform" method="post">
                 <div class="result-title">
                     <div class="result-list">
                         <a href="admin_useradd.jsp"><i class="icon-font"></i>新增用户</a>
-                        <a id="batchDel" href="javascript:void(0)"><i class="icon-font"></i>批量删除</a>
-                        <a id="updateOrd" href="javascript:void(0)"><i class="icon-font"></i>更新排序</a>
+                        <a id="batchDel" href="javascript:delMore('确定删除这些用户吗?', 'myform')"><i class="icon-font"></i>批量删除</a>
+<!--                         <a id="updateOrd" href="javascript:void(0)"><i class="icon-font"></i>更新排序</a> -->
                     </div>
                 </div>
                 <div class="result-content">
                     <table class="result-tab" width="100%">
                         <tr>
-                            <th class="tc" width="5%"><input class="allChoose" name="" type="checkbox"></th>
+                            <th class="tc" width="5%"><input class="allChoose" name="" onclick=selectAll(this) type="checkbox"></th>
                             
                             <th>ID</th>
                             <th>姓名</th>
@@ -54,11 +54,30 @@
 	                            <td>${u.USER_MOBILE }</td>
 	                            
 	                            <td>
-	                                <a class="link-update" href="#">修改</a>
-	                                <a class="link-del" href="#">删除</a>
+	                                <a class="link-update" href="admin_touserupdate?id=${u.USER_ID}&cpage=${cpage}">修改</a>
+	                                <a class="link-del" href="javascript:del('确定删除吗？', 'admin_douserdel?id=${u.USER_ID}&cpage=${cpage}')">删除</a>
 	                            </td>
 	                        </tr>
                         </c:forEach>
+                        <script>
+                        	function del(mess, url){
+                        		if(confirm(mess)){
+                        			location.href=url;
+                        		}
+                        	}
+                        	function selectAll(o){
+                        		var allDom = document.getElementsByName('id[]');
+                        		for(var i=0; i<allDom.length; i++){
+                        			allDom[i].checked = o.checked;
+                        		}
+                        	}
+                        	function delMore(mess, forname){
+                        		if(confirm(mess)){
+                        			var form = document.getElementById(forname);
+                        			form.submit();
+                        		}
+                        	}
+                        </script>
                     </table>
                     <div class="list-page">
                     	共有${tsum}条记录，当前${cpage}/${tpage}页
