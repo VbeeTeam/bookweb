@@ -23,7 +23,7 @@ public class USERDao {
 	}
 
 	// 3.获取列表总数和总页数 count：条数
-	public static int[] totalPage(int count) {
+	public static int[] totalPage(int count, String keyword) {
 		// 0总记录数 1页数
 		int arr[] = { 0, 1 };
 		// 获取数据库连接对象
@@ -34,9 +34,18 @@ public class USERDao {
 		ResultSet rs = null;
 
 		try {
-			String sql = "select count(*) from USER";
-			// 准备sql语句
-			ps = conn.prepareStatement(sql);
+
+			if (keyword != null) {
+				String sql = "select count(*) from USER where USER_NAME like ?";
+				// 准备sql语句
+				ps = conn.prepareStatement(sql);
+				ps.setString(1, "%" + keyword + "%");
+			} else {
+				String sql = "select count(*) from USER";
+				// 准备sql语句
+				ps = conn.prepareStatement(sql);
+			}
+
 			// 执行sql语句
 			rs = ps.executeQuery();
 
@@ -62,7 +71,7 @@ public class USERDao {
 	}
 
 	// 2.用户查询的方法
-	public static ArrayList<USER> selectAll(int cpage, int count) {
+	public static ArrayList<USER> selectAll(int cpage, int count, String keyword) {
 		// 创建一个列表对象
 		ArrayList<USER> list = new ArrayList<USER>();
 
@@ -75,12 +84,25 @@ public class USERDao {
 
 		try {
 			// String sql = "select * from USER order by USER_BIRTHDAY";
-			String sql = "select * from USER order by USER_BIRTHDAY desc limit ?, ?";
-			// 连接对象里准备sql语句
-			ps = conn.prepareStatement(sql);
-			// 设置语句 1=从第几条开始取 2=取的条数范围
-			ps.setInt(1, (cpage - 1) * count);
-			ps.setInt(2, count);
+			if (keyword != null) {
+				// 模糊搜索
+				String sql = "select * from USER where USER_NAME like ? order by USER_BIRTHDAY desc limit ?, ?";
+				// 连接对象里准备sql语句
+				ps = conn.prepareStatement(sql);
+				ps.setString(1, "%" + keyword + "%");
+				// 设置语句 1=从第几条开始取 2=取的条数范围
+				ps.setInt(2, (cpage - 1) * count);
+				ps.setInt(3, count);
+
+			} else {
+				String sql = "select * from USER order by USER_BIRTHDAY desc limit ?, ?";
+				// 连接对象里准备sql语句
+				ps = conn.prepareStatement(sql);
+				// 设置语句 1=从第几条开始取 2=取的条数范围
+				ps.setInt(1, (cpage - 1) * count);
+				ps.setInt(2, count);
+			}
+
 			// 执行查询结果给结果集
 			rs = ps.executeQuery();
 
