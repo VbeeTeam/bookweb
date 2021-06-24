@@ -15,7 +15,7 @@
             <h1 class="topbar-logo none"><a href="index.html" class="navbar-brand">后台管理</a></h1>
             <ul class="navbar-list clearfix">
                 <li><a class="on" href="admin_index.jsp">首页</a></li>
-                <li><a href="#" target="_blank">网站首页</a></li>
+                <li><a href="/myshop/ToWebIndex" target="_blank">网站首页</a></li>
             </ul>
         </div>
         <div class="top-info-wrap">
@@ -38,11 +38,7 @@
                     <a href="#"><i class="icon-font">&#xe003;</i>常用操作</a>
                     <ul class="sub-menu">
                         <li><a href="/myshop/admin/admin_douserselect"><i class="icon-font">&#xe008;</i>用户管理</a></li>
-                        <li><a href="admin_cate.jsp"><i class="icon-font">&#xe005;</i>分类管理</a></li>
-                        <li><a href="admin_book.jsp"><i class="icon-font">&#xe006;</i>图书管理</a></li>
-                        <li><a href="admin_order.jsp"><i class="icon-font">&#xe004;</i>订单管理</a></li>
-                        <li><a href="admin_message.jsp"><i class="icon-font">&#xe012;</i>留言管理</a></li>
-                        <li><a href="admin_news.jsp"><i class="icon-font">&#xe052;</i>新闻管理</a></li>
+                        <li><a href="/myshop/admin/admin_dobookselect"><i class="icon-font">&#xe006;</i>图书管理</a></li>
                     </ul>
                 </li>
                 <li>
